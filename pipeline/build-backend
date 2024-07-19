@@ -8,15 +8,15 @@ pipeline {
         string(name: 'BRANCH', defaultValue: 'containerise')
     }
     stages {
-        stage('Check out') {
+        stage('Checkout QuanLiPhongKhamNhaKhoa') {
             steps {
                 checkout([
-                        $class           : 'GitSCM',
-                        branches         : [[name: '*/${BRANCH}']],
+                        $class                          : 'GitSCM',
+                        branches                        : [[name: '*/${BRANCH}']],
                         doGenerateSubmoduleConfiguraions: false,
-                        extensions: [[$class: 'CloneOptions', depth: 1, noTags: false, reference: '', shallow: true]],
-                        submoduleConfigs: [],
-                        userRemoteConfigs: [[url: 'git@github.com:datntse/QuanLiPhongKhamNhaKhoa.git']]
+                        extensions                      : [[$class: 'CloneOptions', depth: 1, noTags: false, reference: '', shallow: true]],
+                        submoduleConfigs                : [],
+                        userRemoteConfigs               : [[url: 'git@github.com:datntse/QuanLiPhongKhamNhaKhoa.git']]
                 ])
             }
         }
