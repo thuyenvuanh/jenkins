@@ -22,7 +22,13 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'docker build -t clinic-be .'
+                sh '''
+                    docker build -t clinic-be .
+                    IMAGE_ID =$(docker image ls | grep clinic-be | awk \'{print \$3}\')
+                '''
+                script {
+                    currentBuild.IMAGE_ID = ${IMAGE_ID}
+                }
             }
         }
     }
