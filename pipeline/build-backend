@@ -23,7 +23,10 @@ pipeline {
                     docker build -t clinic-be .
                 '''
                 script {
-                    currentBuild.IMAGE_ID = sh("docker image ls | grep clinic-be | awk \'{print \$3}\'")
+                    currentBuild.description = sh(
+                            script: "docker image ls | grep clinic-be | awk \'{print \$3}\'",
+                            returnStdout: true
+                    ).trim()
                 }
             }
         }
