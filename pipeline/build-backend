@@ -5,16 +5,18 @@ pipeline {
         label 'Host'
     }
     parameters {
-        string(name: 'BRANCH', defaultValue: 'master')
+        string(name: 'BRANCH', defaultValue: 'containerise')
     }
     stages {
         stage('Check out') {
             steps {
                 checkout([
-                        $class  : 'GitSCM',
-                        branches: [[name: '*/${BRANCH}']],
-                        doGenerateSubmoduleConfiguration: false,
-                        userRemoteConfig: [[url: 'git@github.com:datntse/QuanLiPhongKhamNhaKhoa.git']]
+                        $class           : 'GitSCM',
+                        branches         : [[name: '*/${BRANCH}']],
+                        userRemoteConfigs: [[
+                                                    credentialsId:  'github_ssh',
+                                                    url: 'git@github.com:datntse/QuanLiPhongKhamNhaKhoa.git'
+                                            ]]
                 ])
             }
         }
