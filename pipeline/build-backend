@@ -1,0 +1,27 @@
+#!groovy
+
+pipeline {
+    agent {
+        label 'Host'
+    }
+    parameters {
+        string(name: 'BRANCH', defaultValue: 'master')
+    }
+    stages {
+        stage('Check out') {
+            steps {
+                checkout([
+                        $class  : 'GitSCM',
+                        branches: [[name: '*/${BRANCH}']],
+                        doGenerateSubmoduleConfiguration: false,
+                        userRemoteConfig: [[url: 'git@github.com:datntse/QuanLiPhongKhamNhaKhoa.git']]
+                ])
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'docker build -t clinic-be .'
+            }
+        }
+    }
+}
