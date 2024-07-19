@@ -13,10 +13,7 @@ pipeline {
                 checkout([
                         $class           : 'GitSCM',
                         branches         : [[name: '*/${BRANCH}']],
-                        userRemoteConfigs: [[
-                                                    credentialIds: 'github_ssh',
-                                                    url          : 'git@github.com:datntse/QuanLiPhongKhamNhaKhoa.git'
-                                            ]]
+                        userRemoteConfigs: [[url: 'https://github.com/datntse/QuanLiPhongKhamNhaKhoa.git']]
                 ])
             }
         }
@@ -27,7 +24,7 @@ pipeline {
                     IMAGE_ID =$(docker image ls | grep clinic-be | awk \'{print \$3}\')
                 '''
                 script {
-                    currentBuild.IMAGE_ID = ${IMAGE_ID}
+                    currentBuild.IMAGE_ID = $ { IMAGE_ID }
                 }
             }
         }
