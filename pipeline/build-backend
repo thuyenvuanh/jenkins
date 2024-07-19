@@ -21,10 +21,9 @@ pipeline {
             steps {
                 sh '''
                     docker build -t clinic-be .
-                    IMAGE_ID =$(docker image ls | grep clinic-be | awk \'{print \$3}\')
                 '''
                 script {
-                    currentBuild.IMAGE_ID = $ { IMAGE_ID }
+                    currentBuild.IMAGE_ID = sh("docker image ls | grep clinic-be | awk \'{print \$3}\'")
                 }
             }
         }
