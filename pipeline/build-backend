@@ -13,9 +13,6 @@ pipeline {
                 checkout([
                         $class                           : 'GitSCM',
                         branches                         : [[name: '*/${BRANCH}']],
-                        doGenerateSubmoduleConfigurations: false,
-                        extensions                       : [[$class: 'CloneOptions', depth: 1, noTags: false, reference: '', shallow: true]],
-                        submoduleCfg                     : [],
                         userRemoteConfigs                : [[url: 'git@github.com:datntse/QuanLiPhongKhamNhaKhoa.git']]
                 ])
             }
