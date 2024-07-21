@@ -1,0 +1,29 @@
+#! groovy
+
+pipeline {
+  agent { label 'Host' }
+  parameters {
+    text(name: 'SHELL_SCRIPT', description: 'script you want to run')
+  }
+  stages {
+    stage('Create script') {
+      steps {
+        sh """
+          touch script.sh
+          echo "${params.SHELL_SCRIPT}" > script.sh
+          chmod +x script.sh
+        """
+      }
+    }
+    stage('Run script') {
+      steps {
+        sh './script.sh'
+      }
+    }
+  }
+  post {
+    always {
+      sh 'rm script.sh'
+    }
+  }
+}
